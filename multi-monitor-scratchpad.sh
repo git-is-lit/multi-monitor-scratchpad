@@ -93,7 +93,23 @@ Set gaps between the scratchpad and the edges of the monitor
                             currently focused window takes up the most space
                             Omit this option to show the scratchpad on the monitor where
                             the cursor is
-                            Default: option is activated"
+                            Default: option is activated
+
+------------ SPECIAL OPTIONS ------------
+When providing a special option, kno other options are required
+
+--help                      Shows this help text
+
+-c | --print-cache          This options boosts the scripts performance. Use this if you
+                            notice  a delay between running the script and the scratchpad
+                            showing. This option prints information that the script
+                            obtains through expensive commands. Put the output into the
+                            environment variable 'SP_CACHE', then the script skips the
+                            expensive commands and reads the cache instead.
+                            NOTE: Everytime your screen layout changes, you need to set
+                            'SP_CACHE' again. This includes changes in resolution, changes
+                            in connected monitors and changes in the position of the
+                            monitors in the screen space."
 
 init_screen() {
 	#monitors string should have a line for each monitor that looks like this:
@@ -402,6 +418,7 @@ do
 				 WIDTH_PX=$((WIDTH_PX / FLOAT_PRECISION_MULT))
 				 HEIGHT_PX=$((HEIGHT_PX / FLOAT_PRECISION_MULT))
 
+				 printf %s "i3-msg output: "
                  i3-msg ["$SELECTOR"] scratchpad show, resize set $WIDTH_PX px $HEIGHT_PX px, move position $X px $Y px
 		fi
 done
